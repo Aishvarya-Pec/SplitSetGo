@@ -1,0 +1,16 @@
+{
+  "project": {
+    "name": "splitsetgo",
+    "schemaPath": "convex/schema.js",
+    "functionsPath": "convex",
+    "authPath": "convex/auth.config.js"
+  },
+  "auth": {
+    "providers": [
+      {
+        "domain": "https://clerk.com",
+        "applicationID": "convex"
+      }
+    ]
+  }
+}
