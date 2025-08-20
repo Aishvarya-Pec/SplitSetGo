@@ -36,8 +36,8 @@ export const Navbar = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="luxury" className="glow-effect">
-              Get Started
+            <Button variant="luxury" className="glow-effect" asChild>
+              <a href="/dashboard">Get Started</a>
             </Button>
           </div>
 
@@ -65,8 +65,8 @@ export const Navbar = () => {
             <a href="#contact" className="block text-muted-foreground hover:text-primary transition-colors">
               Contact
             </a>
-            <Button variant="luxury" className="w-full glow-effect">
-              Get Started
+            <Button variant="luxury" className="w-full glow-effect" asChild>
+              <a href="/dashboard">Get Started</a>
             </Button>
           </div>
         )}

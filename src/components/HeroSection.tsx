@@ -48,9 +48,12 @@ export const HeroSection = () => {
               size="lg" 
               variant="luxury" 
               className="text-lg px-8 py-4 glow-effect group"
+              asChild
             >
-              Start Splitting Now
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <a href="/dashboard">
+                Start Splitting Now
+                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              </a>
             </Button>
             
             <Button 
