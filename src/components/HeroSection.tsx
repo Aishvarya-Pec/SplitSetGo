@@ -1,53 +1,70 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { motion } from "framer-motion"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Play, CheckCircle, Star, Users, Shield, Zap } from "lucide-react"
+import { Link } from "react-router-dom"
+import { useLazyLoading } from "@/hooks/useLazyLoading"
 
 export const HeroSection = () => {
+  const { elementRef: videoRef, isLoaded: videoLoaded } = useLazyLoading({
+    threshold: 0.1,
+    rootMargin: '100px'
+  })
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-dark" />
-      <div className="absolute inset-0 bg-gradient-emerald opacity-30" />
+    <section id="main-content" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5">
+      {/* Background Video */}
+      <div 
+        ref={videoRef as React.RefObject<HTMLDivElement>}
+        className="absolute inset-0 w-full h-full"
+      >
+        {videoLoaded && (
+          <video
+            className="w-full h-full object-cover bg-video-responsive performance-optimized"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/hero-poster.jpg"
+            preload="metadata"
+          >
+            <source src="/hero-video.webm" type="video/webm" />
+            <source src="/hero-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/20" />
+      </div>
       
       {/* Animated Background Elements */}
-      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-xl animate-float" />
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-accent/20 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-xl animate-float z-20" />
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-accent/20 rounded-full blur-xl animate-float z-20" style={{ animationDelay: '1s' }} />
       
-      <div className="container mx-auto px-6 py-32 relative z-10">
-        <div className="text-center space-y-8 animate-luxury-fade-in">
+      <div className="container-responsive py-16 sm:py-24 lg:py-32 relative z-30">
+        <div className="text-center space-y-6 sm:space-y-8 animate-luxury-fade-in">
           {/* Hero Text */}
-          <div className="space-y-6">
-            <h1 className="font-luxury text-5xl md:text-7xl lg:text-8xl font-bold text-foreground leading-tight">
+          <div className="space-y-4 sm:space-y-6">
+            <h1 className="font-luxury text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight drop-shadow-2xl">
               Split Expenses.
               <br />
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
                 Share Smiles.
               </span>
               <br />
               Pay Smarter.
             </h1>
             
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg px-4">
               The most luxurious way to manage group expenses. 
               Experience premium splitting with elegant design and seamless payments.
             </p>
           </div>
 
-          {/* Hero Image */}
-          <div className="relative mt-16 animate-luxury-scale">
-            <div className="absolute inset-0 bg-gradient-emerald rounded-3xl blur-3xl opacity-50" />
-            <img
-              src="/lovable-uploads/2b4e8f7e-0e3b-4e58-b266-2fd5cedf3aa0.png"
-              alt="SplitSetGo App Preview"
-              className="relative max-w-4xl mx-auto w-full h-auto rounded-3xl shadow-luxury animate-glow-pulse"
-            />
-          </div>
-
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center mt-8 sm:mt-12 px-4">
             <Button 
               size="lg" 
-              variant="luxury" 
-              className="text-lg px-8 py-4 glow-effect group"
+              className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white font-semibold rounded-xl shadow-2xl hover:shadow-emerald-500/25 transition-all duration-300 transform hover:scale-105 group"
               asChild
             >
               <a href="/dashboard">
@@ -55,33 +72,26 @@ export const HeroSection = () => {
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
-            
-            <Button 
-              size="lg" 
-              variant="glass" 
-              className="text-lg px-8 py-4 group"
-            >
-              <Play className="mr-2 h-5 w-5" />
-              Watch Demo
-            </Button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="mt-16 text-center">
-            <p className="text-muted-foreground mb-6">Trusted by thousands of users worldwide</p>
-            <div className="flex justify-center items-center space-x-8 opacity-60">
-              <div className="text-2xl font-bold">10K+</div>
-              <div className="text-muted-foreground">|</div>
-              <div className="text-2xl font-bold">$2M+</div>
-              <div className="text-muted-foreground">|</div>
-              <div className="text-2xl font-bold">99%</div>
-            </div>
-            <div className="flex justify-center items-center space-x-8 text-sm text-muted-foreground mt-2">
-              <div>Active Users</div>
-              <div></div>
-              <div>Split Amount</div>
-              <div></div>
-              <div>Satisfaction</div>
+          <div className="mt-12 sm:mt-16 text-center px-4">
+            <p className="text-gray-300 mb-4 sm:mb-6 text-base sm:text-lg">Trusted by thousands of users worldwide</p>
+            <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 lg:space-x-8 opacity-70">
+              <div className="flex items-center space-x-2">
+                <div className="text-xl sm:text-2xl font-bold text-white">10K+</div>
+                <div className="text-sm text-muted-foreground">Active Users</div>
+              </div>
+              <div className="hidden sm:block text-muted-foreground">|</div>
+              <div className="flex items-center space-x-2">
+                <div className="text-xl sm:text-2xl font-bold text-white">$2M+</div>
+                <div className="text-sm text-muted-foreground">Split Amount</div>
+              </div>
+              <div className="hidden sm:block text-muted-foreground">|</div>
+              <div className="flex items-center space-x-2">
+                <div className="text-xl sm:text-2xl font-bold text-white">99%</div>
+                <div className="text-sm text-muted-foreground">Satisfaction</div>
+              </div>
             </div>
           </div>
         </div>

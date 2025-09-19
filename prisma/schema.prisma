@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model for authentication and profile management
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  image         String?
+  password      String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  groupMembers  GroupMember[]
+  expenses      Expense[]
+  settlements   Settlement[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+
+
+// Group model for organizing expenses
+model Group {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  image       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  members  GroupMember[]
+  expenses Expense[]
+
+  @@map("groups")
+}
+
+// Group membership model
+model GroupMember {
+  id      String @id @default(cuid())
+  userId  String
+  groupId String
+  role    String @default("member") // "admin" or "member"
+  joinedAt DateTime @default(now())
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  group Group @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, groupId])
+  @@map("group_members")
+}
+
+// Expense model for tracking all expenses
+model Expense {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  amount      Float
+  currency    String   @default("USD")
+  category    String?
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Who paid for this expense
+  paidById String
+  paidBy   User   @relation(fields: [paidById], references: [id])
+
+  // Which group this expense belongs to
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+
+  // Relations
+  splits ExpenseSplit[]
+
+  @@map("expenses")
+}
+
+// Expense split model for tracking how expenses are divided
+model ExpenseSplit {
+  id        String @id @default(cuid())
+  expenseId String
+  userId    String
+  amount    Float
+  splitType String @default("equal") // "equal", "unequal", "percentage", "shares"
+  
+  // Relations
+  expense Expense @relation(fields: [expenseId], references: [id], onDelete: Cascade)
+
+  @@unique([expenseId, userId])
+  @@map("expense_splits")
+}
+
+// Settlement model for tracking payments between users
+model Settlement {
+  id          String   @id @default(cuid())
+  amount      Float
+  currency    String   @default("USD")
+  method      String?  // "cash", "upi", "paypal", etc.
+  description String?
+  settledAt   DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  // Who paid whom
+  payerId   String
+  payeeId   String
+  payer     User   @relation(fields: [payerId], references: [id])
+
+  @@map("settlements")
+}
+
+// Notification model for user notifications
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("info") // "info", "expense", "settlement", "group"
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}

@@ -49,6 +49,20 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
+        // Add keyboard navigation support
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            e.currentTarget.click()
+          }
+          props.onKeyDown?.(e)
+        }}
+        // Ensure proper focus visibility
+        style={{
+          ...props.style,
+          outline: 'none',
+        }}
+        data-focus-visible-added=""
       />
     )
   }

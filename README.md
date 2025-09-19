@@ -1,73 +1,78 @@
-# Welcome to your Lovable project
+# SplitSetGo - Premium Expense Splitting
 
-## Project info
+A luxurious expense splitting application that makes managing group expenses elegant and effortless.
 
-**URL**: https://lovable.dev/projects/6e50b139-2e93-42b9-ba16-6b30c9900419
+## Features
 
-## How can I edit this code?
+- **Smart Expense Splitting**: Automatically split bills among group members
+- **Real-time Updates**: See changes instantly across all devices
+- **Premium Design**: Beautiful, modern interface with smooth animations
+- **Group Management**: Create and manage multiple expense groups
+- **Secure Authentication**: Protected user accounts and data
+- **Mobile Responsive**: Works perfectly on all devices
 
-There are several ways of editing your application.
+## Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6e50b139-2e93-42b9-ba16-6b30c9900419) and start prompting.
+- Node.js (v18 or higher)
+- npm or yarn package manager
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd splitsetgo
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2. Install dependencies:
+```bash
+npm install
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
+Fill in your environment variables in the `.env` file.
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Technology Stack
 
-**Use GitHub Codespaces**
+- **Frontend**: React 18 with TypeScript
+- **Styling**: Tailwind CSS with custom animations
+- **UI Components**: Radix UI primitives
+- **Authentication**: Clerk
+- **Database**: Prisma ORM
+- **Build Tool**: Vite
+- **Animations**: Framer Motion
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/     # Reusable UI components
+├── pages/         # Application pages
+├── lib/           # Utility functions and configurations
+├── hooks/         # Custom React hooks
+└── types/         # TypeScript type definitions
+```
 
-This project is built with:
+## Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-## How can I deploy this project?
+## License
 
-Simply open [Lovable](https://lovable.dev/projects/6e50b139-2e93-42b9-ba16-6b30c9900419) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is proprietary software. All rights reserved.
